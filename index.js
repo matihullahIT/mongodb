@@ -25,10 +25,6 @@
          .then(data=>res.send(data))
          .catch(err=>res.send(err));
          })
-                  
-    
-    
- 
                     
          app.get('/find-all',(req,res)=>{
             student.find()
