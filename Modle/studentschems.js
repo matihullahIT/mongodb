@@ -16,7 +16,7 @@
             require:true
         }
     },{timestamps:true});
-    const studentdat=mongoose.model('studentdat',student);
+    const studentdat=mongoose.model('newdbs',student);
     module.exports=studentdat;
                     
                     
