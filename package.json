@@ -1,7 +1,6 @@
 {
   "name": "mongodb",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +8,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^4.18.2",
     "mongoose": "^6.6.5",
-    "nodemon": "^2.0.20"
-  }
+    "mongoose-sequence": "^6.0.1",
+    "nodemon": "^3.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matihullahIT/mongodb.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/matihullahIT/mongodb/issues"
+  },
+  "homepage": "https://github.com/matihullahIT/mongodb#readme",
+  "description": ""
 }
