@@ -1,59 +1,21 @@
+import express from 'express';
+import cors from 'cors';
+import dbconnection from './connection.js';
+import dotenv from 'dotenv';
+import router from './router/index.js'; // Import the router
 
-    const express=require('express');
-    const mongoose=require('mongoose');
-    const student=require('./modle/studentschema');
-    app.use(express.json());
-  //  const mongodb='mongodb+srv://abobakar786:rana786@cluster0.ojybe.mongodb.net/school?retryWrites=true&w=majority'
-   const mongodb="mongodb:mongodb://localhost:27017/mongo"
-  mongoose.connect(mongodb,{useNewUrlParser: true,useUnifiedTopology: true})
-    .then(()=>console.log('mongodb is connected'))
-    .catch(err=>console.log(err));
-    const port=9000;
-    app.listen(port,()=>{
-        console.log(`server work on port no ${port}`);
-    })
-                    
+dotenv.config();
+const app = express();
+const PORT = process.env.PORT;
 
- 
-    app.post('/add-student',(req,res)=>{
-        const studentdata= new student({
-        id:req.body.id,
-        name:req.body.name,
-        class:req.body.class
-         })
-         studentdata.save()
-         .then(data=>res.send(data))
-         .catch(err=>res.send(err));
-         })
-                    
-         app.get('/find-all',(req,res)=>{
-            student.find()
-            .then(data=>res.send(data))
-            .catch(err=>res.send(err));
-        })
-    
-  
-        app.get('/find-onebyid',(req,res)=>{
-            student.find({id:req.body.id})
-            .then(data=>res.send(data))
-            .catch(err=>res.send(err));
-        })
-                                        
-    
-                
-    app.post('/update',(req,res)=>{
-        student.findOneAndUpdate({id:req.body.id},req.body)
-            .then(()=>res.send("data is update"))
-            .catch(err=>res.send(err));
-        })
-    
-                
+// Middleware to parse JSON request bodies
+app.use(express.json());
+app.use(cors());
 
-    app.delete('/delete',(req,res)=>{
-        student.findOneAndDelete({id:req.body.id})
-        .then(()=>res.send("data is delete"))
-        .catch(err=>res.send(err));
-    })
+// Use the router for handling routes
+app.use('/api', router);
 
-                                                             
-                
+app.listen(PORT, () => {
+    console.log(`server is running on port ${PORT}`);
+    dbconnection();
+});
