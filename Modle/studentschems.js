@@ -1,24 +1,46 @@
+import mongoose from 'mongoose';
+import mongooseSequence from 'mongoose-sequence'; // Import the plugin
+const AutoIncrement = mongooseSequence(mongoose); // Pass mongoose to the plugin
 
+const studentdata = mongoose.Schema;
 
-    const mongoose=require('mongoose');
-    const studentdata=mongoose.Schema;
-    const student=new studentdata({
-        id:{
-            type:Number,
-            require:true
-           },
-        name:{
-            type:String,
-            require:true
+const student = new studentdata(
+    {
+        id: {
+            type: Number,
+            unique: true,
+            required: true,
+            default: 0,
         },
-        class:{
-            type:String,
-            require:true
-        }
-    },{timestamps:true});
-    const studentdat=mongoose.model('newdbs',student);
-    module.exports=studentdat;
-                    
-                    
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            validate: {
+                validator: function (v) {
+                    return v.includes('@');
+                },
+                message: (props) => `${props.value} is not a valid email!`,
+            },
+        },
+        section: {
+            type: String,
+            enum: ['A', 'B'],
+            required: true,
+        },
+        semester: {
+            type: String,
+            default: 'BSc',
+        },
+    },
+    { timestamps: true }
+);
 
-                
+student.plugin(AutoIncrement, { inc_field: 'id' }); // Use the plugin with the schema
+
+const student_scheema = mongoose.model('newdbs', student);
+
+export default student_scheema;
